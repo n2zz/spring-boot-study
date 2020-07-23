@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
     implementation('org.springframework.boot:spring-boot-starter-web')
     annotationProcessor('org.projectlombok:lombok')
     implementation('org.projectlombok:lombok')
