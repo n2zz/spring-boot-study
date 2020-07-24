@@ -58,4 +58,10 @@ public class PostsService {
                 .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void delete (Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 자료가 없습니다. id=" + id));
+        postsRepository.delete(posts);
+    }
 }
