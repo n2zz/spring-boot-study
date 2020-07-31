@@ -1,5 +1,6 @@
 package com.springboot.book.web;
 
+import com.springboot.book.web.dto.PostsResponseDslDto;
 import com.springboot.book.web.dto.PostsResponseDto;
 import com.springboot.book.web.dto.PostsSaveRequestDto;
 import com.springboot.book.service.PostsService;
@@ -7,11 +8,12 @@ import com.springboot.book.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class PostApiController {
+public class PostsApiController {
     private final PostsService postsService;
 
     @PostMapping("/api/v1/posts")
@@ -30,8 +32,8 @@ public class PostApiController {
     }
 
     @GetMapping("/api/v1/posts/")
-    public List<PostsResponseDto> findAll () {
-         return postsService.findAll();
+    public List<PostsResponseDslDto> findAll () {
+         return postsService.findAll2();
     }
 
     @DeleteMapping("/api/v1/posts/{id}")

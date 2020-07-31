@@ -2,22 +2,54 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.3.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group 'com.n2zz.spring-boot-study'
 version '1.0-SNAPSHOT'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-mustache')
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    annotationProcessor('org.projectlombok:lombok')
-    implementation('org.projectlombok:lombok')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+
+    compileOnly ('org.projectlombok:lombok')
     implementation('com.h2database:h2')
+
+    implementation('com.querydsl:querydsl-jpa')
+
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
+
+//querydsl 추가 시작
+def querydslDir = "src/main/generated"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslDir]
+        }
+    }
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+//querydsl 추가 끝

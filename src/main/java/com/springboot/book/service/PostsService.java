@@ -2,10 +2,7 @@ package com.springboot.book.service;
 
 import com.springboot.book.domain.posts.Posts;
 import com.springboot.book.domain.posts.PostsRepository;
-import com.springboot.book.web.dto.PostsListResponseDto;
-import com.springboot.book.web.dto.PostsResponseDto;
-import com.springboot.book.web.dto.PostsSaveRequestDto;
-import com.springboot.book.web.dto.PostsUpdateRequestDto;
+import com.springboot.book.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +47,15 @@ public class PostsService {
             postsRepositoryLst.add(new PostsResponseDto(entity));
         }
         return postsRepositoryLst;
+    }
+
+    public PostsResponseDslDto findByIdDsl(Long id) {
+        return postsRepository.findByIdDsl(id);
+    }
+
+    public List<PostsResponseDslDto> findAll2() {
+
+        return postsRepository.findAll2();
     }
 
     @Transactional(readOnly = true)
